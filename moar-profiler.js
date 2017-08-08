@@ -8,6 +8,7 @@ const pkg = require('./package.json')
 const profiler = require('./lib/profiler')
 const sources = require('./lib/sources')
 const packages = require('./lib/packages')
+const meta = require('./lib/meta')
 
 const Log = require('./lib/logger').getLogger(__filename)
 
@@ -64,6 +65,18 @@ function profile (url, opts, cb) {
 
   function packagesAdded (err, profile) {
     if (err) return Log.andCallbackError(cb, err, 'error adding packages')
+
+    Log('adding meta information')
+    meta.addMeta(session, profile, metaAdded)
+  }
+
+  function metaAdded (err, profile) {
+    if (err) return Log.andCallbackError(cb, err, 'error adding meta information')
+
+    // put meta at top
+    if (profile != null) {
+      profile = Object.assign({ meta: profile.meta }, profile)
+    }
 
     Log('disconnecting session')
     session.disconnect()
