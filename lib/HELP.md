@@ -8,6 +8,14 @@ The inspector-url should be an http/s: url to a Node.js process running
 with the inspector port open.  When invoking node with the `--inspect` option,
 it will use the port 9229, so the url would be `http://localhost:9229`.
 
+You can also use just a host name, just a port number, or a `host:port` value,
+in which case the following defaults will be used for the missing pieces of
+the url:
+
+* protocol: `http:`
+* hostname: `localhost`
+* port:     `9229`
+
 The generated profile will be written to stdout.  Some tools require the
 file extension of the profile to be `.cpuprofile`, but the data in the file
 is delicious, creamy JSON.
