@@ -29,9 +29,11 @@ runTest(function basicRemote (t) {
       return
     }
 
-    t.ok(profile.nodes, 'profile has a nodes object')
-    t.ok(profile.scripts, 'profile has a scripts object')
+    validateProfile(t, profile)
     t.end()
+
+    profile.timeDeltas = []
+    profile.samples = []
   })
 })
 
@@ -43,13 +45,39 @@ runTest(function runTestInProcess (t) {
       return
     }
 
-    t.ok(profile.nodes, 'profile has a nodes object')
-    t.ok(profile.scripts, 'profile has a scripts object')
+    validateProfile(t, profile)
     t.end()
   })
 
   keepBusy(1)
 })
+
+function validateProfile (t, profile) {
+  t.ok(Array.isArray(profile.nodes), 'profile has a nodes object')
+  t.ok(Array.isArray(profile.scripts), 'profile has a scripts object')
+  t.ok(Array.isArray(profile.pkgs), 'profile has a pkgs object')
+
+  const nodes = new Map()
+  const scripts = new Map()
+  const pkgs = new Map()
+
+  for (let node of profile.nodes) { nodes.set(node.id, node) }
+  for (let script of profile.scripts) { scripts.set(script.id, script) }
+  for (let pkg of profile.pkgs) { pkgs.set(pkg.path, pkg) }
+
+  for (let node of profile.nodes) {
+    if (node.children == null) continue
+    for (let child of node.children) {
+      t.ok(nodes.get(child), `child node ${child} found`)
+    }
+    t.ok(scripts.get(node.callFrame.scriptId), `script ${node.callFrame.scriptId} found`)
+  }
+
+  for (let script of profile.scripts) {
+    const pkg = script.pkg
+    t.ok(pkgs.get(pkg), `pkg ${pkg} found`)
+  }
+}
 
 function keepBusy (seconds) {
   const start = Date.now()

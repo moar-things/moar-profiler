@@ -1,6 +1,6 @@
 {
   "name": "moar-profiler",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "v8 cpu profiler with moar",
   "license": "MIT",
   "author": "Patrick Mueller <pmuellr@apache.org> (https://github.com/pmuellr)",

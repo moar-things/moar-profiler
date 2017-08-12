@@ -80,6 +80,11 @@ function profile (url, opts, cb) {
 
     Log('disconnecting session')
     session.disconnect()
+
+    // convert scripts and pkgs to arrays
+    profile.scripts = Array.from(profile.scripts.values())
+    profile.pkgs = Array.from(profile.pkgs.values())
+
     cb(null, profile)
   }
 }
