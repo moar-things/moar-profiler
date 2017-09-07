@@ -1,6 +1,6 @@
 {
   "name": "moar-profiler",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "v8 cpu profiler with moar",
   "license": "MIT",
   "author": "Patrick Mueller <pmuellr@apache.org> (https://github.com/pmuellr)",
@@ -34,7 +34,7 @@
     "minimist": "~1.2.0"
   },
   "devDependencies": {
-    "nodemon": "~1.11.0",
+    "nodemon": "~1.11.1",
     "standard": "~10.0.3",
     "tap-spec": "~4.1.1",
     "tape": "~4.7.0"
