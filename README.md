@@ -64,7 +64,7 @@ Example usage:
 install
 ================================================================================
 
-    npm install moar-things/moar-profiler
+    npm install -g moar-things/moar-profiler
 
 
 license
