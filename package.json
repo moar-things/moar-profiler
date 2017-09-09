@@ -1,20 +1,20 @@
 {
   "name": "moar-profiler",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "v8 cpu profiler with moar",
   "license": "MIT",
   "author": "Patrick Mueller <pmuellr@apache.org> (https://github.com/pmuellr)",
-  "homepage": "https://github.com/pmuellr/moar-profiler",
+  "homepage": "https://github.com/moar-things/moar-profiler",
   "main": "moar-profiler.js",
   "bin": {
     "moar-profiler": "./moar-profiler.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pmuellr/moar-profiler.git"
+    "url": "https://github.com/moar-things/moar-profiler.git"
   },
   "bugs": {
-    "url": "https://github.com/pmuellr/moar-profiler/issues"
+    "url": "https://github.com/moar-things/moar-profiler/issues"
   },
   "scripts": {
     "standard": "echo 'running standard' && standard -v",
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "async": "~2.5.0",
-    "inspector-remote": "github:pmuellr/inspector-remote",
+    "inspector-remote": "github:moar-things/inspector-remote",
     "minimist": "~1.2.0"
   },
   "devDependencies": {
