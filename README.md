@@ -32,6 +32,9 @@ usage
 The `inspector-url` parameter should be an http/s: url to a Node.js process
 running with the inspector port open.  When invoking node with the `--inspect`
 option, it will use the port 9229, so the url would be `http://localhost:9229`.
+When the url sans profile is `http://localhost`, you can just provide the
+port number instead of the complete url.  So instead of `http://localhost:9229`
+you can use `9229` as the url.
 
 The generated profile will be written to stdout.  Some tools require the
 file extension of the profile to be `.cpuprofile`, but the data in the file
@@ -55,7 +58,7 @@ Example usage:
     node --inspect my
 
     # run the profiler in another terminal
-    moar-profiler -d 3 http://localhost:9229 > my.moar.cpuprofile
+    moar-profiler -d 3 9229 > my.moar.cpuprofile
 
 
 install
