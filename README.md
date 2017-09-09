@@ -13,26 +13,25 @@ tools, like [Chrome Dev Tools][].
 
 * JavaScript source of the modules that appear in the profile
 * package information on those modules
+* some metadata about your node process
 
-Sadly, there are no visualization tools (that I know of) to display this
-additional information.  Gotta start somewhere.  Existing tools, like
-[Chrome Dev Tools][] will just ignore the additional information.
+You can use the online [moar-profile-viewer][] to display that enriched profile
+data.  Or just use any old profile viewer like [Chrome Dev Tools][], and it
+will just ignore the additional information.
 
-Until better tools arrive, `moar-profiler` is still useful as a command-line
-tool to get CPU profiles from your running programs.
-
+[moar-profile-viewer]: https://moar-things.github.io/moar-profile-viewer/
 [V8 Profiler]: https://chromedevtools.github.io/devtools-protocol/v8/Profiler/
 [Chrome Dev Tools]: doc/node-CDT.md
 
 usage
 ================================================================================
 
-    moar-profiling [options] inspector-url
+    moar-profiler [options] inspector-url
 
 The `inspector-url` parameter should be an http/s: url to a Node.js process
 running with the inspector port open.  When invoking node with the `--inspect`
 option, it will use the port 9229, so the url would be `http://localhost:9229`.
-When the url sans profile is `http://localhost`, you can just provide the
+When the url protocol / hostname is `http://localhost`, you can just provide the
 port number instead of the complete url.  So instead of `http://localhost:9229`
 you can use `9229` as the url.
 
