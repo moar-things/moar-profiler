@@ -19,6 +19,11 @@ You can use the online [moar-profile-viewer][] to display that enriched profile
 data.  Or just use any old profile viewer like [Chrome Dev Tools][], and it
 will just ignore the additional information.
 
+Note that while `moar-profiler` will run on versions of Node.js >= version 4,
+it can only generate profiles for programs running on versions of Node.js >=
+version 6.  The Chrome Dev Tools inspector protocol is not available for
+Node.js version 4.
+
 [moar-profile-viewer]: https://moar-things.github.io/moar-profile-viewer/
 [V8 Profiler]: https://chromedevtools.github.io/devtools-protocol/v8/Profiler/
 [Chrome Dev Tools]: doc/node-CDT.md
