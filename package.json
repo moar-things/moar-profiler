@@ -1,5 +1,5 @@
 {
-  "name": "moar-profiler",
+  "name": "@moar-things/moar-profiler",
   "version": "1.8.2",
   "description": "v8 cpu profiler with moar",
   "license": "MIT",
