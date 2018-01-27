@@ -1,13 +1,9 @@
 'use strict'
 
-const fs = require('fs')
-
-const standard = require('standard')
-
 const moarProfiler = require('..')
 const utils = require('./lib/utils')
 
-const TestCode = fs.readFileSync(__filename, 'utf-8')
+const profileTestCode = require('./profile-test-code')
 
 const runTest = utils.createTestRunner(__filename)
 
@@ -38,6 +34,8 @@ runTest(function basicRemote (t) {
 })
 
 runTest(function runTestInProcess (t) {
+  profileTestCode.run(2000)
+
   moarProfiler.profile(null, { duration: 1 }, (err, profile) => {
     if (err) {
       t.error(err, `error running profile: ${err}`)
@@ -48,14 +46,14 @@ runTest(function runTestInProcess (t) {
     validateProfile(t, profile)
     t.end()
   })
-
-  keepBusy(1)
 })
 
 function validateProfile (t, profile) {
-  t.ok(Array.isArray(profile.nodes), 'profile has a nodes object')
-  t.ok(Array.isArray(profile.scripts), 'profile has a scripts object')
-  t.ok(Array.isArray(profile.pkgs), 'profile has a pkgs object')
+  t.pass('starting validation')
+
+  if (!Array.isArray(profile.nodes)) t.fail('profile has a nodes object')
+  if (!Array.isArray(profile.scripts)) t.fail('profile has a scripts object')
+  if (!Array.isArray(profile.pkgs)) t.fail('profile has a pkgs object')
 
   const nodes = new Map()
   const scripts = new Map()
@@ -65,30 +63,33 @@ function validateProfile (t, profile) {
   for (let script of profile.scripts) { scripts.set(script.id, script) }
   for (let pkg of profile.pkgs) { pkgs.set(pkg.path, pkg) }
 
+  let testsRun = 0
+  let testsPassed = 0
+
   for (let node of profile.nodes) {
     if (node.children == null) continue
+
     for (let child of node.children) {
-      t.ok(nodes.get(child), `child node ${child} found`)
+      testOk(t, nodes.get(child), `child node ${child} found`)
     }
-    t.ok(scripts.get(node.callFrame.scriptId), `script ${node.callFrame.scriptId} found`)
+
+    testOk(t, scripts.get(node.callFrame.scriptId), `script ${node.callFrame.scriptId} found`)
   }
 
   for (let script of profile.scripts) {
     const pkg = script.pkg
-    t.ok(pkgs.get(pkg), `pkg ${pkg} found`)
+    testOk(t, pkgs.get(pkg), `pkg ${pkg} found`)
   }
-}
 
-function keepBusy (seconds) {
-  const start = Date.now()
+  t.equal(testsPassed, testsRun, `all ${testsRun} tests should pass`)
 
-  oneRun()
+  function testOk (t, value, message) {
+    testsRun++
+    if (value) {
+      testsPassed++
+      return
+    }
 
-  function oneRun () {
-    if (Date.now() - start > seconds * 1000) return
-
-    standard.lintText(TestCode, () => {
-      oneRun()
-    })
+    t.fail(message)
   }
 }

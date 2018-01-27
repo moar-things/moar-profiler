@@ -1,6 +1,6 @@
 {
   "name": "@moar-things/moar-profiler",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "description": "v8 cpu profiler with moar",
   "license": "MIT",
   "author": "Patrick Mueller <pmuellr@apache.org> (https://github.com/pmuellr)",
@@ -19,7 +19,7 @@
   "scripts": {
     "standard": "echo 'running standard' && standard -v",
     "test": "npm -s run standard && npm -s run utest",
-    "utest": "INSPECTOR_PORT=9228 node --inspect=9228 test/index.js | FORCE_COLOR=1 tap-spec",
+    "utest": "INSPECTOR_PORT=9228 test/run-tests.sh | FORCE_COLOR=1 tap-spec",
     "watch": "nodemon --exec 'npm -s test'"
   },
   "standard": {

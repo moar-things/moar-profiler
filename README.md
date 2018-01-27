@@ -28,7 +28,7 @@ Node.js version 4.
 [V8 Profiler]: https://chromedevtools.github.io/devtools-protocol/v8/Profiler/
 [Chrome Dev Tools]: doc/node-CDT.md
 
-usage
+usage from the command-line
 ================================================================================
 
     moar-profiler [options] inspector-url
@@ -63,6 +63,24 @@ Example usage:
 
     # run the profiler in another terminal
     moar-profiler -d 3 9229 > my.moar.cpuprofile
+
+
+usage in-process, as a module, in >= node 8
+================================================================================
+
+```js
+const moarProfiler = require('moar-profiler')
+...
+const moarProfilerOptions = {
+  duration: 1     // seconds,
+  sampling: 1000  // microseconds
+}
+
+// run profile for specified # of seconds and send back err / profile object
+moarProfiler.profile(null, options, (err, profileObject) => {
+  ...
+})
+```
 
 
 install

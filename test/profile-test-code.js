@@ -19,8 +19,9 @@ function run (ms) {
     if (Date.now() - start > ms) return
 
     standard.lintText(TestCode, (err, results) => {
-      const message = err ? `error: ${err}` : `standard errors: ${results.errorCount}`
-      console.error(new Date(), message)
+      if (err) return console.log(`${__filename}: error running standard:`, err)
+      // const message = err ? `error: ${err}` : `standard errors: ${results.errorCount}`
+      // console.error(new Date(), message)
       oneRun()
     })
   }
@@ -28,5 +29,5 @@ function run (ms) {
 
 if (require.main === module) {
   console.error(`calling standard for 30 seconds`)
-  run(30000)
+  run(30 * 1000)
 }
