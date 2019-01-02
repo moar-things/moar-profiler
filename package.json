@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "async": "~2.5.0",
-    "inspector-remote": "github:moar-things/inspector-remote",
+    "inspector-remote": "github:moar-things/inspector-remote#semver:^1.0",
     "minimist": "~1.2.0"
   },
   "devDependencies": {
